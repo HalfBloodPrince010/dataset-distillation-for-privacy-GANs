@@ -105,6 +105,15 @@ We used AutoEncoder on both the training image batch and generated image batch. 
 
 ## Evaluation Experiments: Quantitative/qualitative measures to evaluate results.
 
+A good measure of a how well a GAN generates privacy preserved dataset would be evaluated against:
+- Performance of the GAN : Measure of the quality of generated data, typically evaluated by computing the Inception Score(IS), which in turn computes the KL Divergence between the generated data distribution and the training data distribution.
+![Privacy v/s Quality](Images/inception_score.png)
+
+- Epsilon Differential Privacy (ε-DP) : Measure of level of privacy guarantee achieved by a model. A randomized algorithm φ is said to provide ε-differential privacy if, for all datasets d and d’,such that the d and d’ differ by one element(add/remove one entry in the dataset)
+![Privacy v/s Quality](Images/epsilon-DP.png)
+
+- Maximum mean discrepancy(MMD) : The idea of representing distances between distributions as distances between mean embeddings of features. That is, say we have distributions P and Q, then the MMD will be:
+![Privacy v/s Quality](Images/MMD.png)
 
 # Privacy v/s Quality
 
@@ -118,7 +127,7 @@ We need to strike the right balance between the quality and privacy. As the nois
 
 ## High Noise v/s Low Noise
 ![Privacy v/s Quality](Images/high_vs_low_noise.png)
-When the noise is low, distance is less, so privacy is not preserved. As the noise increases, as we can see from the graph, the spikes indicates it is not same the training data and is inaccessible to the underlying distribution. We have used noise as the proxy to measure the privacy.
+When the noise is low, distance is less, so compromises on the privacy. As the noise increases, as we can see from the graph, the spikes indicates it is not same the training data and is inaccessible to the underlying distribution. We have used noise as the proxy to measure the privacy.
 
 # Conclusions
 
@@ -128,7 +137,7 @@ When the noise is low, distance is less, so privacy is not preserved. As the noi
 ![Privacy v/s Quality](Images/privacy_vs_qual.png)
 
 - As seen from this graphs, if we add too much noise, quality deteriorates.
-Quality of Results using WGAN with different noise values.
+Below is an example of Quality of Results using WGAN with different noise values.
 ![Privacy v/s Quality](Images/WGAN_with_noise.png)
 
 

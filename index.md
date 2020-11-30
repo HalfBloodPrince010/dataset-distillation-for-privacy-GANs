@@ -28,7 +28,7 @@ We experimented with some much simpler low dimensional variables to get a richer
 In the following, we can see the performance of a GAN on fitting an extremely simple two-dimensional Gaussian variable with 2000 training samples.
 
 
-#### Simple Gaussian
+### Simple Gaussian
 
 #### Unimodal Distribution
 ![Gaussian](Images/gaussian_uni.png)
@@ -36,12 +36,14 @@ In the following, we can see the performance of a GAN on fitting an extremely si
 #### After Epoch 300 and 1000
 ![Gaussian](Images/gaussian.png)
 
-#### Multimodal Gaussian
+### Multimodal Gaussian
 
 #### Multimodal Distribution
 ![Gaussian](Images/gaussian_mixture.png)
 
 ![Gaussian](Images/gaussian_multi.png)
+
+#### Gaussian Mixture Generator and Discriminator Loss
 
 ![Gaussian](Images/gaussian_multi_graphs_dis_gen.png)
 
@@ -84,46 +86,8 @@ As a result, we are considering to use auto encoder on both of these batches of 
 
 Currently, we are using an AutoEncoder on both the training image batch and generated image batch. These latent feature map, is used to map to reproducing kernel Hilbert space .These are spaces of functions, and satisfy a key property (called the reproducing property). Generated intermediate latent variable is to calculate the maximum Mean Discrepancy between two latent representation of those batches. Two distributions are similar if their moments are similar. In the latent space we can compute the difference between the moments and average it. This gives a measure of the similarity/dissimilarity between the datasets. For further mathematical expression refer Section 5. Evaluation Experiments: Quantitative/qualitative measures to evaluate results.
 
-
-
-
-
-
-
 # Conclusions
 
 - Privacy can be preserved - using noise/ gradient penalty, making it inaccessible to the original data.
 - We have to find the noise such that we strike a good balance between the quality and also the privacy.
 - As seen from this graphs, if we add too much noise, quality deteriorates.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/HalfBloodPrince010/dataset-distillation-for-privacy-GANs/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.

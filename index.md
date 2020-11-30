@@ -73,6 +73,8 @@ The **network architecture** is as follows :
 
 ![Generated Images](Images/Generated.png)
 
+As it can be seen here, the quality of the images produced are much better.
+
 # Privacy Analysis
 
 ## Nearest Neighbors Analysis
@@ -99,7 +101,10 @@ As a result, we are considering to use auto encoder on both of these batches of 
 
 ## Maximum Mean Discrepancy
 
-Currently, we are using an AutoEncoder on both the training image batch and generated image batch. These latent feature map, is used to map to reproducing kernel Hilbert space .These are spaces of functions, and satisfy a key property (called the reproducing property). Generated intermediate latent variable is to calculate the maximum Mean Discrepancy between two latent representation of those batches. Two distributions are similar if their moments are similar. In the latent space we can compute the difference between the moments and average it. This gives a measure of the similarity/dissimilarity between the datasets. For further mathematical expression refer Section 5. Evaluation Experiments: Quantitative/qualitative measures to evaluate results.
+Currently, we are using an AutoEncoder on both the training image batch and generated image batch. These latent feature map, is used to map to reproducing kernel Hilbert space .These are spaces of functions, and satisfy a key property (called the reproducing property). Generated intermediate latent variable is to calculate the maximum Mean Discrepancy between two latent representation of those batches. Two distributions are similar if their moments are similar. In the latent space we can compute the difference between the moments and average it. This gives a measure of the similarity/dissimilarity between the datasets. 
+
+## Evaluation Experiments: Quantitative/qualitative measures to evaluate results.
+
 
 # Privacy v/s Quality
 
@@ -119,4 +124,11 @@ Currently, we are using an AutoEncoder on both the training image batch and gene
 
 - Privacy can be preserved - using noise/ gradient penalty, making it inaccessible to the original data.
 - We have to find the noise such that we strike a good balance between the quality and also the privacy.
+
+![Privacy v/s Quality](Images/high_vs_low_noise.png)
+
 - As seen from this graphs, if we add too much noise, quality deteriorates.
+Quality of Results using WGAN with different noise values.
+![Privacy v/s Quality](Images/WGAN_with_noise.png)
+
+

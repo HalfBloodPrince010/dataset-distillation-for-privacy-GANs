@@ -39,7 +39,7 @@ In the following, we can see the performance of a GAN on fitting an extremely si
 ### DCGAN
 
 DCGAN with Convolution Architecture produced better images compared to that of DCGAN with Linear Layers with the CelebA dataset. However, it suffered from the mode collapse. And the overall quality of the images wasn’t that clear for the CelebA dataset. So, we explored other GAN models.
-![DCGAN real and Fake Images](Images/DCGAN.png)
+![DCGAN real and Fake Images](Images/DCGAN_Output.png)
 
 ### WGAN - Fully Connected Generator
 

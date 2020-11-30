@@ -30,6 +30,10 @@ In the following, we can see the performance of a GAN on fitting an extremely si
 
 #### Simple Gaussian
 
+![Gaussian](Images/gaussian.png)
+
+
+![Gaussian](Images/gaussian_uni.png)
 
 
 #### Multimodal Gaussian

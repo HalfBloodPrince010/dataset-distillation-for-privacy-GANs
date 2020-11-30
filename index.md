@@ -49,7 +49,17 @@ In this model, we use linear or fully-connected layers in the generator and disc
 ### Convoluted WGAN with Gradient Penalty
 
 Similar to the above GAN, this model uses Wasserstein distance as a loss measure, but to enforce Lipschitz constraint, we use gradient norm as a penalty to clip the gradients. Furthermore, in this model we use convoluted layers instead of linear layers in the generator and discriminator model.
-The network architecture is as follows :
+The **network architecture** is as follows :
+
+![Architecture](Images/WGAN_GP.png)
+
+##### Training Images
+
+![Triaining Images](Images/Training_Image.png)
+
+##### Generated Images
+
+![Generated Images](Images/Generated.png)
 
 # Privacy Analysis
 

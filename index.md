@@ -101,6 +101,20 @@ As a result, we are considering to use auto encoder on both of these batches of 
 
 Currently, we are using an AutoEncoder on both the training image batch and generated image batch. These latent feature map, is used to map to reproducing kernel Hilbert space .These are spaces of functions, and satisfy a key property (called the reproducing property). Generated intermediate latent variable is to calculate the maximum Mean Discrepancy between two latent representation of those batches. Two distributions are similar if their moments are similar. In the latent space we can compute the difference between the moments and average it. This gives a measure of the similarity/dissimilarity between the datasets. For further mathematical expression refer Section 5. Evaluation Experiments: Quantitative/qualitative measures to evaluate results.
 
+# Privacy v/s Quality
+
+## Tradeoff between Privacy and Quality
+
+![Privacy v/s Quality](Images/privacy_vs_qual.png)
+
+## Logscale Privacy v/s Quality
+![Privacy v/s Quality](Images/privacy_vs_quality_logscale.png)
+
+## High Noise v/s Low Noise
+![Privacy v/s Quality](Images/high_vs_low_noise.png)
+
+
+
 # Conclusions
 
 - Privacy can be preserved - using noise/ gradient penalty, making it inaccessible to the original data.

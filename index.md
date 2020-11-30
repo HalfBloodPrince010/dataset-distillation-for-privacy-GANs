@@ -8,7 +8,7 @@ Our objective is to use a GAN to both provide high quality samples for training 
 
 ![Image](https://github.com/HalfBloodPrince010/dataset-distillation-for-privacy-GANs/blob/gh-pages/Images/Screen%20Shot%202020-11-30%20at%2012.04.20%20PM.png)
 
-![Image][https://github.com/HalfBloodPrince010/dataset-distillation-for-privacy-GANs/blob/gh-pages/Images/discriminator_final.PNG]
+![Image](https://github.com/HalfBloodPrince010/dataset-distillation-for-privacy-GANs/blob/gh-pages/Images/discriminator_final.PNG)
 
 ## Input and Output
 

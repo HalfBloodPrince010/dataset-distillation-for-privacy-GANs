@@ -18,7 +18,7 @@ As the outcome of the project, we will analyze the privacy concerns associated w
 
 Firstly, we trained a Gaussian to understand the divergence between the distributions. We explored different GAN’s like DCGAN( Linear Layers & Conv Layer Architectures), WGAN with Fully Connected Generator and Convoluted WGAN with Gradient Penalty for different Hyperparameter settings.
 
-![Image](https://github.com/HalfBloodPrince010/dataset-distillation-for-privacy-GANs/blob/gh-pages/Images/design.png)
+![Image](Images/design.png)
 
 ## Models
 
@@ -26,6 +26,7 @@ Firstly, we trained a Gaussian to understand the divergence between the distribu
 
 We experimented with some much simpler low dimensional variables to get a richer understanding of the trade-off between sample quality, distribution understanding, and privacy protection. In many cases, having generated the underlying training data, we have access to a pure measure of performance in terms of the distance from the true distribution. This helps ground our understanding of performance relative to the amount of privacy gained by a numerical model like differential privacy. We trained both standard GANs and WGANs on these simple datasets to find the model with the best performance on these simpler datasets.
 In the following, we can see the performance of a GAN on fitting an extremely simple two-dimensional Gaussian variable with 2000 training samples.
+
 
 #### Simple Gaussian
 
@@ -38,6 +39,7 @@ In the following, we can see the performance of a GAN on fitting an extremely si
 ### DCGAN
 
 DCGAN with Convolution Architecture produced better images compared to that of DCGAN with Linear Layers with the CelebA dataset. However, it suffered from the mode collapse. And the overall quality of the images wasn’t that clear for the CelebA dataset. So, we explored other GAN models.
+![DCGAN real and Fake Images](Images/DCGAN.png)
 
 ### WGAN - Fully Connected Generator
 

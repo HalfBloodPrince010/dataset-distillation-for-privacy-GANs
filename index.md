@@ -79,8 +79,23 @@ The **network architecture** is as follows :
 
 We have calculated the nearest neighbors matrix for each of the generated images(approx 6400 images) with a random batch of images from the training set. Then, picked the image with the min distance between those training and generated images. We explored different distance metrics like Cosine Distance, Euclidean distance and Mahalanobis distance.
 
+#### Cosine Distance
+![Cosine](Images/Cosine.png)
+
+#### Mahalnobis Distance
+![Mahalnobis](Images/Mahalanobis.png)
+
 As it can be seen,**this serves as one of the metric show that GAN is not actually spitting out the actual training images** , and is able to capture features like Rotation, orientation, flips etc., But given the high dimension of the data, this is suffering from the curse of dimensionality, for the large number of comparison, most of the images is close to one specific image.
 As a result, we are considering to use auto encoder on both of these batches of data, calculate the latent representation (reducing the dimension), then calculating the distance matrix between these two batches.
+
+#### Generated Samples
+##### Sample 1
+
+![Mahalnobis](Images/KNN_Example_1.png)
+
+##### Sample 2
+
+![Mahalnobis](Images/KNN_Example_2.png)
 
 ## Maximum Mean Discrepancy
 

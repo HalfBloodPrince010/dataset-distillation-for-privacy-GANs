@@ -101,7 +101,7 @@ As a result, we are considering to use auto encoder on both of these batches of 
 
 ## Maximum Mean Discrepancy
 
-Currently, we are using an AutoEncoder on both the training image batch and generated image batch. These latent feature map, is used to map to reproducing kernel Hilbert space .These are spaces of functions, and satisfy a key property (called the reproducing property). Generated intermediate latent variable is to calculate the maximum Mean Discrepancy between two latent representation of those batches. Two distributions are similar if their moments are similar. In the latent space we can compute the difference between the moments and average it. This gives a measure of the similarity/dissimilarity between the datasets. 
+We used AutoEncoder on both the training image batch and generated image batch. These latent feature map, is used to map to reproducing kernel Hilbert space .These are spaces of functions, and satisfy a key property (called the reproducing property). Generated intermediate latent variable is to calculate the maximum Mean Discrepancy between two latent representation of those batches. Two distributions are similar if their moments are similar. In the latent space we can compute the difference between the moments and average it. This gives a measure of the similarity/dissimilarity between the datasets. We got a MMD value of about 0.008.
 
 ## Evaluation Experiments: Quantitative/qualitative measures to evaluate results.
 
@@ -111,14 +111,14 @@ Currently, we are using an AutoEncoder on both the training image batch and gene
 ## Tradeoff between Privacy and Quality
 
 ![Privacy v/s Quality](Images/privacy_vs_qual.png)
+We need to strike the right balance between the quality and privacy. As the noise multiplier increases, quality of the images becomes much worse. As seen from the graph, there is a peak at which the distance is high ( privacy is preserved) and quality of the images generated is better.
 
 ## Logscale Privacy v/s Quality
 ![Privacy v/s Quality](Images/privacy_vs_quality_logscale.png)
 
 ## High Noise v/s Low Noise
 ![Privacy v/s Quality](Images/high_vs_low_noise.png)
-
-
+When the noise is low, distance is less, so privacy is not preserved. As the noise increases, as we can see from the graph, the spikes indicates it is not same the training data and is inaccessible to the underlying distribution. We have used noise as the proxy to measure the privacy.
 
 # Conclusions
 

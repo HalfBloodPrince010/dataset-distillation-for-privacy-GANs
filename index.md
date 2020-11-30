@@ -106,7 +106,7 @@ As a result, we are considering to use auto encoder on both of these batches of 
 
 We used AutoEncoder on both the training image batch and generated image batch. These latent feature map, is used to map to reproducing kernel Hilbert space .These are spaces of functions, and satisfy a key property (called the reproducing property). Generated intermediate latent variable is to calculate the maximum Mean Discrepancy between two latent representation of those batches. Two distributions are similar if their moments are similar. In the latent space we can compute the difference between the moments and average it. This gives a measure of the similarity/dissimilarity between the datasets. We got a MMD value of about 0.008.
 
-```python
+```
 def max_mean_discrepancy(x, y, B, alpha):
   xx, yy, zz = torch.mm(x,x.t()), torch.mm(y,y.t()), torch.mm(x,y.t())
   rx = (xx.diag().unsqueeze(0).expand_as(xx))

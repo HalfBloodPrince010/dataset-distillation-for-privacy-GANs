@@ -30,14 +30,20 @@ In the following, we can see the performance of a GAN on fitting an extremely si
 
 #### Simple Gaussian
 
-![Gaussian](Images/gaussian.png)
-
-
+#### Unimodal Distribution
 ![Gaussian](Images/gaussian_uni.png)
 
+#### After Epoch 300 and 1000
+![Gaussian](Images/gaussian.png)
 
 #### Multimodal Gaussian
 
+#### Multimodal Distribution
+![Gaussian](Images/gaussian_mixture.png)
+
+![Gaussian](Images/gaussian_multi.png)
+
+![Gaussian](Images/gaussian_multi_graphs_dis_gen.png)
 
 
 ### DCGAN
@@ -78,6 +84,17 @@ As a result, we are considering to use auto encoder on both of these batches of 
 
 Currently, we are using an AutoEncoder on both the training image batch and generated image batch. These latent feature map, is used to map to reproducing kernel Hilbert space .These are spaces of functions, and satisfy a key property (called the reproducing property). Generated intermediate latent variable is to calculate the maximum Mean Discrepancy between two latent representation of those batches. Two distributions are similar if their moments are similar. In the latent space we can compute the difference between the moments and average it. This gives a measure of the similarity/dissimilarity between the datasets. For further mathematical expression refer Section 5. Evaluation Experiments: Quantitative/qualitative measures to evaluate results.
 
+
+
+
+
+
+
+# Conclusions
+
+- Privacy can be preserved - using noise/ gradient penalty, making it inaccessible to the original data.
+- We have to find the noise such that we strike a good balance between the quality and also the privacy.
+- As seen from this graphs, if we add too much noise, quality deteriorates.
 
 ### Markdown
 

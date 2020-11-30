@@ -17,7 +17,7 @@ As the outcome of the project, we will analyze the privacy concerns associated w
 
 Firstly, we trained a Gaussian to understand the divergence between the distributions. We explored different GAN’s like DCGAN( Linear Layers & Conv Layer Architectures), WGAN with Fully Connected Generator and Convoluted WGAN with Gradient Penalty for different Hyperparameter settings.
 
-## Model
+## Models
 
 # Gaussians
 

@@ -12,6 +12,9 @@ Our objective is to use a GAN to both provide high quality samples for training 
 We explored medical datasets like ImageCLEF Radiology Image dataset (4000 training images, 500 Validation images, 500 test set images), and STARE retinal image dataset. The models were trained on the ImageCLEF Radiology images, the results are near to the original scans, we can’t really comprehend or evaluate the results obtained. So, we went ahead with using celebA dataset to generate a new celebrity dataset and measure privacy.
 As the outcome of the project, we will analyze the privacy concerns associated with releasing a dataset by inculcating measures like Maximum mean discrepancy(MMD), Nearest Neighbors etc.
 
+![Image](Images/ImageMedical.png)
+
+
 # Models and Experimentation
 
 ## Data Generation Phase

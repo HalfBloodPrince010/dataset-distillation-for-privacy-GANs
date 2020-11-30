@@ -8,8 +8,6 @@ Our objective is to use a GAN to both provide high quality samples for training 
 
 ![Image](https://github.com/HalfBloodPrince010/dataset-distillation-for-privacy-GANs/blob/gh-pages/Images/Screen%20Shot%202020-11-30%20at%2012.04.20%20PM.png)
 
-![Image](https://github.com/HalfBloodPrince010/dataset-distillation-for-privacy-GANs/blob/gh-pages/Images/discriminator_final.PNG)
-
 ## Input and Output
 
 We explored medical datasets like ImageCLEF Radiology Image dataset (4000 training images, 500 Validation images, 500 test set images), and STARE retinal image dataset. The models were trained on the ImageCLEF Radiology images, the results are near to the original scans, we can’t really comprehend or evaluate the results obtained. So, we went ahead with using celebA dataset to generate a new celebrity dataset and measure privacy.

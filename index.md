@@ -19,18 +19,21 @@ Firstly, we trained a Gaussian to understand the divergence between the distribu
 
 # Models
 
-1. **Gaussians**
+**Gaussians**
 
 We experimented with some much simpler low dimensional variables to get a richer understanding of the trade-off between sample quality, distribution understanding, and privacy protection. In many cases, having generated the underlying training data, we have access to a pure measure of performance in terms of the distance from the true distribution. This helps ground our understanding of performance relative to the amount of privacy gained by a numerical model like differential privacy. We trained both standard GANs and WGANs on these simple datasets to find the model with the best performance on these simpler datasets.
 In the following, we can see the performance of a GAN on fitting an extremely simple two-dimensional Gaussian variable with 2000 training samples.
-2. **DCGAN**
+
+**DCGAN**
 
 DCGAN with Convolution Architecture produced better images compared to that of DCGAN with Linear Layers with the CelebA dataset. However, it suffered from the mode collapse. And the overall quality of the images wasn’t that clear for the CelebA dataset. So, we explored other GAN models.
-3. **WGAN - Fully Connected Generator**
+
+**WGAN - Fully Connected Generator**
 
 Loss measure used in DCGAN is susceptible to mode collapse. Taking this into consideration, WGAN uses Wasserstein distance (distance function defined between probability distributions on a given metric space) as a loss measure for smoother gradients and this loss function is immune to mode collapse.
 In this model, we use linear or fully-connected layers in the generator and discriminator architecture. We use the Earth Mover distance or Wasserstein distance for the loss function with gradient clipping to achieve 1-lipschitz constraint
-4. **Convoluted WGAN with Gradient Penalty**
+
+**Convoluted WGAN with Gradient Penalty**
 
 Similar to the above GAN, this model uses Wasserstein distance as a loss measure, but to enforce Lipschitz constraint, we use gradient norm as a penalty to clip the gradients. Furthermore, in this model we use convoluted layers instead of linear layers in the generator and discriminator model.
 The network architecture is as follows :

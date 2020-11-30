@@ -127,6 +127,7 @@ We need to strike the right balance between the quality and privacy. As the nois
 
 ## Logscale Privacy v/s Quality
 ![Privacy v/s Quality](Images/privacy_vs_quality_logscale.png)
+There is no longer the exact Wasserstein distance because it is intractable to compute. Rather, it is the sampled likelihood value (since training distribution is still known, but generated distribution is unknown).
 
 ## High Noise v/s Low Noise
 ![Privacy v/s Quality](Images/high_vs_low_noise.png)

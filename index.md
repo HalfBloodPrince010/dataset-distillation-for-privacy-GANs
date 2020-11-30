@@ -125,7 +125,7 @@ Currently, we are using an AutoEncoder on both the training image batch and gene
 - Privacy can be preserved - using noise/ gradient penalty, making it inaccessible to the original data.
 - We have to find the noise such that we strike a good balance between the quality and also the privacy.
 
-![Privacy v/s Quality](Images/high_vs_low_noise.png)
+![Privacy v/s Quality](Images/privacy_vs_qual.png)
 
 - As seen from this graphs, if we add too much noise, quality deteriorates.
 Quality of Results using WGAN with different noise values.

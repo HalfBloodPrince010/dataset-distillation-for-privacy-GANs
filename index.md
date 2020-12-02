@@ -1,6 +1,6 @@
 # Problem Formulation
 
-Our objective is to use a GAN to both provide high quality samples for training downstream models while simultaneously abstracting away from the original patients used to train the model. Overall, this objective consists of two competing tasks which we will attempt to effectively measure in our experiments:
+Our objective is to use a GAN to both provide high quality samples for training downstream models while simultaneously abstracting away from the original data used to train the model. Overall, this objective consists of two competing tasks which we will attempt to effectively measure in our experiments:
 - We want to make the original dataset private. These ideas are explored in the literature and are primarily referred to as differential privacy. One of the main objectives in the privacy literature is that an adversary is unable to recover an original training sample only from the model’s parameters or outputs (sometimes called a Membership Inference Attack-MIA).
 
 ![Image](Images/Motivation.png)
@@ -12,11 +12,14 @@ Our objective is to use a GAN to both provide high quality samples for training 
 We explored medical datasets like ImageCLEF Radiology Image dataset (4000 training images, 500 Validation images, 500 test set images), and STARE retinal image dataset. The models were trained on the ImageCLEF Radiology images, the results are near to the original scans, we can’t really comprehend or evaluate the results obtained. So, we went ahead with using celebA dataset to generate a new celebrity dataset and measure privacy.
 As the outcome of the project, we will analyze the privacy concerns associated with releasing a dataset by inculcating measures like Maximum mean discrepancy(MMD), Nearest Neighbors etc.
 
+![Image](Images/ImageMedical.png)
+
+
 # Models and Experimentation
 
 ## Data Generation Phase
 
-Firstly, we trained a Gaussian to understand the divergence between the distributions. We explored different GAN’s like DCGAN( Linear Layers & Conv Layer Architectures), WGAN with Fully Connected Generator and Convoluted WGAN with Gradient Penalty for different Hyperparameter settings.
+Firstly, we trained a Gaussian to understand the divergence between the distributions. We explored different GAN’s like DCGAN( Linear Layers & Convolution Layer Architectures), WGAN with Fully Connected Generator and Convoluted WGAN with Gradient Penalty for different Hyperparameter settings.
 
 ![Image](Images/design.png)
 
@@ -36,17 +39,39 @@ In the following, we can see the performance of a GAN on fitting an extremely si
 #### After Epoch 300 and 1000
 ![Gaussian](Images/gaussian.png)
 
+The Red dots are the Generated Images, Blue dots are the actuals images and the grey backgroud represents the discriminator.
+
+#### Discriminator Final
+![Gaussian](Images/discriminator_final.PNG)
+
 ### Multimodal Gaussian
+
+We experimented on multimodal Gaussian, this helps us understand real-world multimodal distributions like Medical data containing scans of different body parts.
 
 #### Multimodal Distribution
 ![Gaussian](Images/gaussian_mixture.png)
 
 ![Gaussian](Images/gaussian_multi.png)
 
+GAN will be able generate data of different body scans if we run for large number of epocs, whilst still maintaining the underlying privacy.
+
 #### Gaussian Mixture Generator and Discriminator Loss
 
 ![Gaussian](Images/gaussian_multi_graphs_dis_gen.png)
 
+
+### Gaussian Experiments
+As shown in section above, we trained these architectures on some small, simple distributions.
+Ultimately, we still semi-consistently found that WGAN-GP fitted these distributions better than WGAN or SGAN, so we report most results for WGAN-GP unless explicitly mentioned otherwise.  
+In the following experiments, we tuned our hyper-parameters on WGAN-GP until we got reasonable performance on a normal GAN model. We then used the Gaussian noise multiplier directly on optimization as explored in the privacy literature. This ensures that the information directly captured by the images/ data samples is not known exactly by the deep learning model.
+
+These next figures show the conclusions of our experiments on the simple variables which confirms our intuition. This is the idea that there will be a tradeoff between privacy and quality as we increase the privacy we will ultimately reach a point where the model is unable to learn enough about the underlying distribution. Interestingly, in the curve below for the simple Gaussian variable we actually see a slight increase in GAN performance before we see the expected decrease. 
+We assume this is due to the regularization type property which adding noise to the training gradients has. This also gives evidence to why this intersection we explored in this paper (between GANs and privacy) should be further explored as the goal of GANs to provide diverse images/ samples has great intersection with the goal of privacy to provide private samples. It is possible this alignment in goals is furthering the GANs ability to accurately learn the distribution.
+This idea should be further explored in future work.
+
+![Gaussian](Images/simp_gauss_tradeoff.png)
+
+![Gaussian](Images/mog_tradeoff.png)
 
 ### DCGAN
 
@@ -79,7 +104,7 @@ As it can be seen here, the quality of the images produced are much better.
 
 ## Nearest Neighbors Analysis
 
-We have calculated the nearest neighbors matrix for each of the generated images(approx 6400 images) with a random batch of images from the training set. Then, picked the image with the min distance between those training and generated images. We explored different distance metrics like Cosine Distance, Euclidean distance and Mahalanobis distance.
+We have calculated the nearest neighbors matrix for each of the generated images(approx 6400 images) with a random batch of images from the training set. Then, picked the image with the min distance between those training and generated images. We explored different distance metrics like Cosine Distance, Euclidean distance and Mahalanobis distance. Randomly sampled different batches of data from the Training Data to perform this analysis.
 
 #### Cosine Distance
 ![Cosine](Images/Cosine.png)
@@ -87,8 +112,8 @@ We have calculated the nearest neighbors matrix for each of the generated images
 #### Mahalnobis Distance
 ![Mahalnobis](Images/Mahalanobis.png)
 
-As it can be seen,**this serves as one of the metric show that GAN is not actually spitting out the actual training images** , and is able to capture features like Rotation, orientation, flips etc., But given the high dimension of the data, this is suffering from the curse of dimensionality, for the large number of comparison, most of the images is close to one specific image.
-As a result, we are considering to use auto encoder on both of these batches of data, calculate the latent representation (reducing the dimension), then calculating the distance matrix between these two batches.
+As it can be seen,**this serves as one of the metric show that GAN is not actually spitting out the actual training images** , and is able to capture features like Rotation, orientation, flips etc., But given the high dimension of the data, this is suffering from the curse of dimensionality ( The curse of dimensionality refers to various phenomena that arise when analyzing and organizing data in high-dimensional spaces that do not occur in low-dimensional settings such as the three-dimensional physical space of everyday experience ), for the large number of comparison, most of the images is close to one specific image.
+As a result, we used auto encoder on both of these batches of data, calculate the latent representation (reducing the dimension), then calculating the distance matrix between these two batches. This shows how close the training images are to the generated images. We were able to produce images without actual spitting out the actual training images. 
 
 #### Generated Samples
 ##### Sample 1
@@ -101,7 +126,27 @@ As a result, we are considering to use auto encoder on both of these batches of 
 
 ## Maximum Mean Discrepancy
 
-We used AutoEncoder on both the training image batch and generated image batch. These latent feature map, is used to map to reproducing kernel Hilbert space .These are spaces of functions, and satisfy a key property (called the reproducing property). Generated intermediate latent variable is to calculate the maximum Mean Discrepancy between two latent representation of those batches. Two distributions are similar if their moments are similar. In the latent space we can compute the difference between the moments and average it. This gives a measure of the similarity/dissimilarity between the datasets. We got a MMD value of about 0.008.
+We used AutoEncoder on both the training image batch and generated image batch. These latent feature map, is used to map to reproducing kernel Hilbert space .These are spaces of functions, and satisfy a key property (called the reproducing property). Generated intermediate latent variable is to calculate the maximum Mean Discrepancy between two latent representation of those batches. Two distributions are similar if their moments are similar. In the latent space we can compute the difference between the moments and average it. This gives a measure of the similarity/dissimilarity between the datasets. For high dimension data, we reduce the dimension first, before computing the MMD. Here we use the untrained Auto Encoder (UAE) to produce the representation.  We got a MMD value of about 0.008.
+
+```Python
+def max_mean_discrepancy(x, y, B, alpha):
+  xx, yy, zz = torch.mm(x,x.t()), torch.mm(y,y.t()), torch.mm(x,y.t())
+  rx = (xx.diag().unsqueeze(0).expand_as(xx))
+  ry = (yy.diag().unsqueeze(0).expand_as(yy))
+
+  K = torch.exp(- alpha * (rx.t() + rx - 2*xx))
+  L = torch.exp(- alpha * (ry.t() + ry - 2*yy))
+  P = torch.exp(- alpha * (rx.t() + ry - 2*zz))
+
+  beta = (1./(B*(B-1)))
+  gamma = (2./(B*B)) 
+
+  mmd =  beta * (torch.sum(K)+torch.sum(L)) - gamma * torch.sum(P)
+  return mmd
+```
+
+- Maximum mean discrepancy(MMD) : The idea of representing distances between distributions as distances between mean embeddings of features. That is, say we have distributions P and Q, then the MMD will be:
+![Privacy v/s Quality](Images/MMD.png)
 
 ## Evaluation Experiments: Quantitative/qualitative measures to evaluate results.
 
@@ -112,9 +157,6 @@ A good measure of a how well a GAN generates privacy preserved dataset would be 
 - Epsilon Differential Privacy (ε-DP) : Measure of level of privacy guarantee achieved by a model. A randomized algorithm φ is said to provide ε-differential privacy if, for all datasets d and d’,such that the d and d’ differ by one element(add/remove one entry in the dataset)
 ![Privacy v/s Quality](Images/epsilon-DP.png)
 
-- Maximum mean discrepancy(MMD) : The idea of representing distances between distributions as distances between mean embeddings of features. That is, say we have distributions P and Q, then the MMD will be:
-![Privacy v/s Quality](Images/MMD.png)
-
 # Privacy v/s Quality
 
 ## Tradeoff between Privacy and Quality
@@ -124,6 +166,7 @@ We need to strike the right balance between the quality and privacy. As the nois
 
 ## Logscale Privacy v/s Quality
 ![Privacy v/s Quality](Images/privacy_vs_quality_logscale.png)
+There is no longer the exact Wasserstein distance because it is intractable to compute. Rather, it is the sampled likelihood value (since training distribution is still known, but generated distribution is unknown).
 
 ## High Noise v/s Low Noise
 ![Privacy v/s Quality](Images/high_vs_low_noise.png)
@@ -140,4 +183,4 @@ When the noise is low, distance is less, so compromises on the privacy. As the n
 Below is an example of Quality of Results using WGAN with different noise values.
 ![Privacy v/s Quality](Images/WGAN_with_noise.png)
 
-
+After MMD, further we can detect the drift by using using pre-processing methods that doesn't actually depend on the model,  which usually picks up the drifts between the data. We can understand how, if too much noise is added the perturbed data generated will perform poorly.

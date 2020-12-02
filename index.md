@@ -1,6 +1,6 @@
 # Problem Formulation
 
-Our objective is to use a GAN to both provide high quality samples for training downstream models while simultaneously abstracting away from the original patients used to train the model. Overall, this objective consists of two competing tasks which we will attempt to effectively measure in our experiments:
+Our objective is to use a GAN to both provide high quality samples for training downstream models while simultaneously abstracting away from the original data used to train the model. Overall, this objective consists of two competing tasks which we will attempt to effectively measure in our experiments:
 - We want to make the original dataset private. These ideas are explored in the literature and are primarily referred to as differential privacy. One of the main objectives in the privacy literature is that an adversary is unable to recover an original training sample only from the model’s parameters or outputs (sometimes called a Membership Inference Attack-MIA).
 
 ![Image](Images/Motivation.png)
@@ -50,6 +50,22 @@ In the following, we can see the performance of a GAN on fitting an extremely si
 
 ![Gaussian](Images/gaussian_multi_graphs_dis_gen.png)
 
+
+### Gaussian Experiments
+As shown in section above, we trained these architectures on some small, simple distributions.
+Ultimately, we still semi-consistently found that WGAN-GP fitted these distributions better than WGAN or SGAN, so we report most results for WGAN-GP unless explicitly mentioned otherwise.  
+In the following experiments, we tuned our hyper-parameters on WGAN-GP until we got reasonable performance on a normal GAN model. We then used the Gaussian noise multiplier directly on optimization as explored in the privacy literature. This ensures that the information directly captured by the images/ data samples is not known exactly by the deep learning model.
+The following shows the training curve over time of the exact performance of the GAN when comparing the low-noise and high-noise environments.
+
+![Gaussian](Images/simp_gauss_tradeoff.png)
+
+These next figures show the conclusions of our experiments on the simple variables which confirms our intuition. This is the idea that there will be a tradeoff between privacy and quality as we increase the privacy we will ultimately reach a point where the model is unable to learn enough about the underlying distribution. Interestingly, in the curve below for the simple Gaussian variable we actually see a slight increase in GAN performance before we see the expected decrease. 
+We assume this is due to the regularization type property which adding noise to the training gradients has. This also gives evidence to why this intersection we explored in this paper (between GANs and privacy) should be further explored as the goal of GANs to provide diverse images/ samples has great intersection with the goal of privacy to provide private samples. It is possible this alignment in goals is furthering the GANs ability to accurately learn the distribution.
+This idea should be further explored in future work.
+
+![Gaussian](Images/simp_gauss_tradeoff.png)
+
+![Gaussian](Images/mog_tradeoff.png)
 
 ### DCGAN
 

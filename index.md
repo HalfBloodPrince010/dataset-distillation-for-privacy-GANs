@@ -42,7 +42,7 @@ In the following, we can see the performance of a GAN on fitting an extremely si
 The Red dots are the Generated Images, Blue dots are the actuals images and the grey backgroud represents the discriminator.
 
 #### Discriminator Final
-![Gaussian](Images/discriminator_final.png)
+![Gaussian](Images/discriminator_final.PNG)
 
 ### Multimodal Gaussian
 

@@ -104,7 +104,7 @@ As it can be seen here, the quality of the images produced are much better.
 
 ## Nearest Neighbors Analysis
 
-We have calculated the nearest neighbors matrix for each of the generated images(approx 6400 images) with a random batch of images from the training set. Then, picked the image with the min distance between those training and generated images. We explored different distance metrics like Cosine Distance, Euclidean distance and Mahalanobis distance.
+We have calculated the nearest neighbors matrix for each of the generated images(approx 6400 images) with a random batch of images from the training set. Then, picked the image with the min distance between those training and generated images. We explored different distance metrics like Cosine Distance, Euclidean distance and Mahalanobis distance. Randomly sampled different batches of data from the Training Data to perform this analysis.
 
 #### Cosine Distance
 ![Cosine](Images/Cosine.png)
@@ -112,8 +112,8 @@ We have calculated the nearest neighbors matrix for each of the generated images
 #### Mahalnobis Distance
 ![Mahalnobis](Images/Mahalanobis.png)
 
-As it can be seen,**this serves as one of the metric show that GAN is not actually spitting out the actual training images** , and is able to capture features like Rotation, orientation, flips etc., But given the high dimension of the data, this is suffering from the curse of dimensionality, for the large number of comparison, most of the images is close to one specific image.
-As a result, we are considering to use auto encoder on both of these batches of data, calculate the latent representation (reducing the dimension), then calculating the distance matrix between these two batches.
+As it can be seen,**this serves as one of the metric show that GAN is not actually spitting out the actual training images** , and is able to capture features like Rotation, orientation, flips etc., But given the high dimension of the data, this is suffering from the curse of dimensionality ( The curse of dimensionality refers to various phenomena that arise when analyzing and organizing data in high-dimensional spaces that do not occur in low-dimensional settings such as the three-dimensional physical space of everyday experience ), for the large number of comparison, most of the images is close to one specific image.
+As a result, we used auto encoder on both of these batches of data, calculate the latent representation (reducing the dimension), then calculating the distance matrix between these two batches. This shows how close the training images are to the generated images. We were able to produce images without actual spitting out the actual training images. 
 
 #### Generated Samples
 ##### Sample 1
@@ -126,7 +126,7 @@ As a result, we are considering to use auto encoder on both of these batches of 
 
 ## Maximum Mean Discrepancy
 
-We used AutoEncoder on both the training image batch and generated image batch. These latent feature map, is used to map to reproducing kernel Hilbert space .These are spaces of functions, and satisfy a key property (called the reproducing property). Generated intermediate latent variable is to calculate the maximum Mean Discrepancy between two latent representation of those batches. Two distributions are similar if their moments are similar. In the latent space we can compute the difference between the moments and average it. This gives a measure of the similarity/dissimilarity between the datasets. We got a MMD value of about 0.008.
+We used AutoEncoder on both the training image batch and generated image batch. These latent feature map, is used to map to reproducing kernel Hilbert space .These are spaces of functions, and satisfy a key property (called the reproducing property). Generated intermediate latent variable is to calculate the maximum Mean Discrepancy between two latent representation of those batches. Two distributions are similar if their moments are similar. In the latent space we can compute the difference between the moments and average it. This gives a measure of the similarity/dissimilarity between the datasets. For high dimension data, we reduce the dimension first, before computing the MMD. Here we use the untrained Auto Encoder (UAE) to produce the representation.  We got a MMD value of about 0.008.
 
 ```Python
 def max_mean_discrepancy(x, y, B, alpha):
@@ -145,6 +145,9 @@ def max_mean_discrepancy(x, y, B, alpha):
   return mmd
 ```
 
+- Maximum mean discrepancy(MMD) : The idea of representing distances between distributions as distances between mean embeddings of features. That is, say we have distributions P and Q, then the MMD will be:
+![Privacy v/s Quality](Images/MMD.png)
+
 ## Evaluation Experiments: Quantitative/qualitative measures to evaluate results.
 
 A good measure of a how well a GAN generates privacy preserved dataset would be evaluated against:
@@ -153,9 +156,6 @@ A good measure of a how well a GAN generates privacy preserved dataset would be 
 
 - Epsilon Differential Privacy (ε-DP) : Measure of level of privacy guarantee achieved by a model. A randomized algorithm φ is said to provide ε-differential privacy if, for all datasets d and d’,such that the d and d’ differ by one element(add/remove one entry in the dataset)
 ![Privacy v/s Quality](Images/epsilon-DP.png)
-
-- Maximum mean discrepancy(MMD) : The idea of representing distances between distributions as distances between mean embeddings of features. That is, say we have distributions P and Q, then the MMD will be:
-![Privacy v/s Quality](Images/MMD.png)
 
 # Privacy v/s Quality
 
@@ -183,4 +183,4 @@ When the noise is low, distance is less, so compromises on the privacy. As the n
 Below is an example of Quality of Results using WGAN with different noise values.
 ![Privacy v/s Quality](Images/WGAN_with_noise.png)
 
-
+After MMD, further we can detect the drift by using using pre-processing methods that doesn't actually depend on the model,  which usually picks up the drifts between the data. We can understand how, if too much noise is added the perturbed data generated will perform poorly.

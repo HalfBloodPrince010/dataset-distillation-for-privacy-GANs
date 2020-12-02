@@ -41,9 +41,6 @@ In the following, we can see the performance of a GAN on fitting an extremely si
 
 The Red dots are the Generated Images, Blue dots are the actuals images and the grey backgroud represents the discriminator.
 
-#### Discriminator Final
-![Gaussian](Images/discriminator_final.PNG)
-
 ### Multimodal Gaussian
 
 We experimented on multimodal Gaussian, this helps us understand real-world multimodal distributions like Medical data containing scans of different body parts.
@@ -63,15 +60,17 @@ GAN will be able generate data of different body scans if we run for large numbe
 ### Gaussian Experiments
 As shown in section above, we trained these architectures on some small, simple distributions.
 Ultimately, we still semi-consistently found that WGAN-GP fitted these distributions better than WGAN or SGAN, so we report most results for WGAN-GP unless explicitly mentioned otherwise.  
-In the following experiments, we tuned our hyper-parameters on WGAN-GP until we got reasonable performance on a normal GAN model. We then used the Gaussian noise multiplier directly on optimization as explored in the privacy literature. This ensures that the information directly captured by the images/ data samples is not known exactly by the deep learning model.
-
-These next figures show the conclusions of our experiments on the simple variables which confirms our intuition. This is the idea that there will be a tradeoff between privacy and quality as we increase the privacy we will ultimately reach a point where the model is unable to learn enough about the underlying distribution. Interestingly, in the curve below for the simple Gaussian variable we actually see a slight increase in GAN performance before we see the expected decrease. 
-We assume this is due to the regularization type property which adding noise to the training gradients has. This also gives evidence to why this intersection we explored in this paper (between GANs and privacy) should be further explored as the goal of GANs to provide diverse images/ samples has great intersection with the goal of privacy to provide private samples. It is possible this alignment in goals is furthering the GANs ability to accurately learn the distribution.
-This idea should be further explored in future work.
+In these following experiments, we tuned our hyper-parameters on WGAN-GP until we got reasonable performance on a normal GAN model. We then used the Gaussian noise multiplier directly on optimization as explored in the privacy literature. This ensures that the information directly captured by the images/ data samples is not known exactly by the deep learning model.
 
 ![Gaussian](Images/simp_gauss_tradeoff.png)
 
 ![Gaussian](Images/mog_tradeoff.png)
+
+These figures above show the conclusions of our experiments on the simple variables which confirms our intuition.
+This is the idea that there will be a tradeoff between privacy and quality as we increase the privacy we will ultimately reach a point where the model is unable to learn enough about the underlying distribution.
+Interestingly, in the curve below for the simple Gaussian variable we actually see a slight increase in GAN performance before we see the expected decrease. 
+We assume this is due to the regularization type property which adding noise to the training gradients has. This also gives evidence to why this intersection we explored in this paper (between GANs and privacy) should be further explored as the goal of GANs to provide diverse images/ samples has great intersection with the goal of privacy to provide private samples. It is possible this alignment in goals is furthering the GANs ability to accurately learn the distribution.
+This idea should be further explored in future work.
 
 ### DCGAN
 
